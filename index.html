@@ -24,12 +24,6 @@
                             500: '#3b82f6',
                             600: '#2563eb',
                             700: '#1d4ed8',
-                        },
-                        paper: {
-                            light: '#fdfbf7',
-                            lines: '#e2e8f0',
-                            dark: '#1e293b',
-                            darklines: '#334155'
                         }
                     },
                     fontFamily: {
@@ -45,18 +39,18 @@
         }
     </script>
     <style>
-        /* Notebook Lined Background Effects */
+        /* Notebook Paper Patterns */
         .paper-ruled {
-            background-color: #fcfbfa;
-            background-image: linear-gradient(#e2e8f0 1px, transparent 1px), linear-gradient(90deg, #fecdd3 1px, transparent 1px);
-            background-size: 100% 1.8rem, 100% 100%;
-            background-position: 0 0, 3.5rem 0;
+            background-color: #fdfbf7;
+            background-image: linear-gradient(#cbd5e1 1px, transparent 1px), linear-gradient(90deg, #f87171 1.5px, transparent 1.5px);
+            background-size: 100% 2.1rem, 100% 100%;
+            background-position: 0 0, 3.2rem 0;
         }
         .dark .paper-ruled {
             background-color: #0f172a;
-            background-image: linear-gradient(#1e293b 1px, transparent 1px), linear-gradient(90deg, #881337 1px, transparent 1px);
-            background-size: 100% 1.8rem, 100% 100%;
-            background-position: 0 0, 3.5rem 0;
+            background-image: linear-gradient(#334155 1px, transparent 1px), linear-gradient(90deg, #991b1b 1.5px, transparent 1.5px);
+            background-size: 100% 2.1rem, 100% 100%;
+            background-position: 0 0, 3.2rem 0;
         }
         .paper-grid {
             background-color: #fafaf9;
@@ -68,46 +62,55 @@
             background-image: linear-gradient(#1e293b 1px, transparent 1px), linear-gradient(90deg, #1e293b 1px, transparent 1px);
             background-size: 1.5rem 1.5rem;
         }
+        .paper-blank {
+            background-color: #fefefe;
+        }
+        .dark .paper-blank {
+            background-color: #0f172a;
+        }
 
         /* Handwritten font utility styling */
         .handwritten {
-            letter-spacing: 0.02em;
-            word-spacing: 0.05em;
-            line-height: 1.8rem;
-        }
-
-        /* Custom Scrollbars */
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 9999px;
-        }
-        .dark ::-webkit-scrollbar-thumb {
-            background: #475569;
+            letter-spacing: 0.025em;
+            word-spacing: 0.08em;
+            line-height: 2.1rem;
         }
 
         /* Highlighting Simulation */
-        .hl-yellow { background-color: rgba(254, 240, 138, 0.65); padding: 0 4px; border-radius: 3px; }
-        .hl-green { background-color: rgba(187, 247, 208, 0.65); padding: 0 4px; border-radius: 3px; }
-        .hl-pink { background-color: rgba(fbcfe8, 0.65); padding: 0 4px; border-radius: 3px; }
-        .hl-blue { background-color: rgba(191, 219, 254, 0.65); padding: 0 4px; border-radius: 3px; }
+        .hl-yellow { background-color: rgba(254, 240, 138, 0.7); padding: 2px 6px; border-radius: 4px; }
+        .hl-green { background-color: rgba(187, 247, 208, 0.7); padding: 2px 6px; border-radius: 4px; }
+        .hl-pink { background-color: rgba(251, 207, 232, 0.7); padding: 2px 6px; border-radius: 4px; }
+        .hl-blue { background-color: rgba(191, 219, 254, 0.7); padding: 2px 6px; border-radius: 4px; }
 
-        .dark .hl-yellow { background-color: rgba(161, 98, 7, 0.45); color: #fef08a; }
-        .dark .hl-green { background-color: rgba(21, 128, 61, 0.45); color: #bbf7d0; }
-        .dark .hl-pink { background-color: rgba(190, 24, 93, 0.45); color: #fbcfe8; }
-        .dark .hl-blue { background-color: rgba(29, 78, 216, 0.45); color: #bfdbfe; }
+        .dark .hl-yellow { background-color: rgba(161, 98, 7, 0.5); color: #fef08a; }
+        .dark .hl-green { background-color: rgba(21, 128, 61, 0.5); color: #bbf7d0; }
+        .dark .hl-pink { background-color: rgba(190, 24, 93, 0.5); color: #fbcfe8; }
+        .dark .hl-blue { background-color: rgba(29, 78, 216, 0.5); color: #bfdbfe; }
+
+        /* Print styles */
+        @media print {
+            header, #inputSection, #resultsSection > div:first-child, .no-print {
+                display: none !important;
+            }
+            body, main, #resultsSection, #viewNotes, #notebookContainer {
+                background: white !important;
+                color: black !important;
+                width: 100% !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            .notebook-page {
+                box-shadow: none !important;
+                border: 1px solid #ccc !important;
+                page-break-after: always;
+            }
+        }
     </style>
 </head>
 <body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors duration-200">
 
     <!-- Header / Navbar -->
-    <header class="sticky top-0 z-40 backdrop-blur-md bg-white/80 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800">
+    <header class="sticky top-0 z-40 backdrop-blur-md bg-white/90 dark:bg-slate-900/90 border-b border-slate-200 dark:border-slate-800 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <div class="flex items-center space-x-3 cursor-pointer" onclick="resetApp()">
                 <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-violet-600 flex items-center justify-center text-white shadow-lg shadow-blue-500/20">
@@ -115,20 +118,20 @@
                 </div>
                 <div>
                     <span class="text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">NoteVault</span>
-                    <span class="text-xs px-2 py-0.5 ml-2 bg-indigo-100 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 rounded-full font-medium border border-indigo-200 dark:border-indigo-800">AI 3.5</span>
+                    <span class="text-xs px-2 py-0.5 ml-2 bg-indigo-100 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 rounded-full font-medium border border-indigo-200 dark:border-indigo-800">AI Notes 4.0</span>
                 </div>
             </div>
 
             <div class="flex items-center space-x-3">
-                <button id="themeToggleBtn" onclick="toggleDarkMode()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition-colors">
+                <button id="themeToggleBtn" onclick="toggleDarkMode()" title="Toggle Dark/Light Mode" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition-colors">
                     <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
                     <i data-lucide="moon" class="w-5 h-5 block dark:hidden"></i>
                 </button>
-                <a href="#savedNotes" onclick="showSavedBookmarksModal()" class="flex items-center space-x-1 px-3 py-2 text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors">
+                <button onclick="showSavedBookmarksModal()" class="flex items-center space-x-1 px-3 py-2 text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors border border-slate-200 dark:border-slate-800">
                     <i data-lucide="bookmark" class="w-4 h-4 text-indigo-500"></i>
                     <span class="hidden sm:inline">Saved Notes</span>
-                    <span id="bookmarkCountBadge" class="bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 text-xs px-1.5 py-0.5 rounded-full font-semibold">0</span>
-                </a>
+                    <span id="bookmarkCountBadge" class="bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 text-xs px-1.5 py-0.5 rounded-full font-semibold ml-1">0</span>
+                </button>
             </div>
         </div>
     </header>
@@ -143,7 +146,7 @@
                     Get <span class="bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600 bg-clip-text text-transparent">World's Best Handwritten Notes</span> in Seconds
                 </h1>
                 <p class="text-slate-600 dark:text-slate-400 text-base sm:text-lg">
-                    AI-curated, exam-targeted handwritten notes with diagrams, formula boxes & toppers' memory tricks.
+                    AI-curated, exam-targeted handwritten notes with diagrams, key formulas, topper shortcuts, and flashcards.
                 </p>
             </div>
 
@@ -156,80 +159,78 @@
                         1. Select Target Exam Focus
                     </label>
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                        <label class="focus-card relative flex flex-col p-4 rounded-xl border-2 border-indigo-500 bg-indigo-50/50 dark:bg-indigo-950/30 cursor-pointer transition-all hover:shadow-md">
-                            <input type="radio" name="targetFocus" value="Board Exam" checked class="sr-only" onchange="updateFocusStyle(this)">
+                        <label id="card-board" class="focus-card relative flex flex-col p-4 rounded-xl border-2 border-indigo-500 bg-indigo-50/50 dark:bg-indigo-950/30 cursor-pointer transition-all hover:shadow-md">
+                            <input type="radio" name="targetFocus" value="Board Exam" checked class="sr-only" onchange="updateFocusSelection('Board Exam')">
                             <div class="flex items-center justify-between mb-2">
                                 <i data-lucide="graduation-cap" class="w-6 h-6 text-indigo-600 dark:text-indigo-400"></i>
-                                <span class="badge w-3 h-3 rounded-full bg-indigo-600"></span>
+                                <span class="focus-indicator w-3 h-3 rounded-full bg-indigo-600"></span>
                             </div>
                             <span class="font-bold text-slate-900 dark:text-white text-sm">Board Exams</span>
-                            <span class="text-xs text-slate-500 dark:text-slate-400 mt-1">NCERT, High-scoring step marking, clean diagrams</span>
+                            <span class="text-xs text-slate-500 dark:text-slate-400 mt-1">NCERT step marking, clean definitions, key diagrams</span>
                         </label>
 
-                        <label class="focus-card relative flex flex-col p-4 rounded-xl border-2 border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 cursor-pointer transition-all hover:shadow-md">
-                            <input type="radio" name="targetFocus" value="Competitive Exam" class="sr-only" onchange="updateFocusStyle(this)">
+                        <label id="card-competitive" class="focus-card relative flex flex-col p-4 rounded-xl border-2 border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 cursor-pointer transition-all hover:shadow-md">
+                            <input type="radio" name="targetFocus" value="Competitive Exam" class="sr-only" onchange="updateFocusSelection('Competitive Exam')">
                             <div class="flex items-center justify-between mb-2">
                                 <i data-lucide="zap" class="w-6 h-6 text-amber-500"></i>
-                                <span class="badge w-3 h-3 rounded-full bg-transparent"></span>
+                                <span class="focus-indicator w-3 h-3 rounded-full bg-transparent"></span>
                             </div>
-                            <span class="font-bold text-slate-900 dark:text-white text-sm">JEE / NEET / Olympiads</span>
-                            <span class="text-xs text-slate-500 dark:text-slate-400 mt-1">Shortcuts, advance formulas, edge cases & tricks</span>
+                            <span class="font-bold text-slate-900 dark:text-white text-sm">JEE / NEET / Competitive</span>
+                            <span class="text-xs text-slate-500 dark:text-slate-400 mt-1">Speed shortcuts, advanced tricks & edge cases</span>
                         </label>
 
-                        <label class="focus-card relative flex flex-col p-4 rounded-xl border-2 border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 cursor-pointer transition-all hover:shadow-md">
-                            <input type="radio" name="targetFocus" value="Foundation" class="sr-only" onchange="updateFocusStyle(this)">
+                        <label id="card-foundation" class="focus-card relative flex flex-col p-4 rounded-xl border-2 border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 cursor-pointer transition-all hover:shadow-md">
+                            <input type="radio" name="targetFocus" value="Foundation" class="sr-only" onchange="updateFocusSelection('Foundation')">
                             <div class="flex items-center justify-between mb-2">
                                 <i data-lucide="compass" class="w-6 h-6 text-emerald-500"></i>
-                                <span class="badge w-3 h-3 rounded-full bg-transparent"></span>
+                                <span class="focus-indicator w-3 h-3 rounded-full bg-transparent"></span>
                             </div>
-                            <span class="font-bold text-slate-900 dark:text-white text-sm">Foundation & Concept</span>
-                            <span class="text-xs text-slate-500 dark:text-slate-400 mt-1">Simplified breakdown, real-life analogies, fundamentals</span>
+                            <span class="font-bold text-slate-900 dark:text-white text-sm">Foundation & Basics</span>
+                            <span class="text-xs text-slate-500 dark:text-slate-400 mt-1">Simple breakdowns, analogies & core concepts</span>
                         </label>
                     </div>
                 </div>
 
-                <!-- Chapter Name Search/Input -->
+                <!-- Chapter Name Input & Search Suggestions -->
                 <div class="relative">
                     <label class="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
                         2. Chapter / Topic Name
                     </label>
                     <div class="relative">
                         <input type="text" id="chapterInput" placeholder="e.g. Light - Reflection and Refraction" 
-                            class="w-full pl-11 pr-4 py-3.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition text-slate-900 dark:text-white font-medium"
-                            oninput="handleSearchSuggestions(this.value)" autocomplete="off">
+                            class="w-full pl-11 pr-4 py-3.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none transition text-slate-900 dark:text-white font-medium"
+                            oninput="handleSearchSuggestions(this.value)" onfocus="handleSearchSuggestions(this.value)" autocomplete="off">
                         <i data-lucide="search" class="w-5 h-5 absolute left-3.5 top-4 text-slate-400"></i>
                     </div>
 
                     <!-- Search Suggestions Popup -->
-                    <div id="suggestionsBox" class="hidden absolute left-0 right-0 top-full mt-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-xl z-30 max-h-56 overflow-y-auto">
+                    <div id="suggestionsBox" class="hidden absolute left-0 right-0 top-full mt-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-xl z-30 max-h-60 overflow-y-auto">
                         <!-- Populated dynamically -->
                     </div>
 
                     <!-- Quick Suggestions Pills -->
                     <div class="mt-3 flex flex-wrap items-center gap-2">
-                        <span class="text-xs text-slate-400">Popular:</span>
-                        <button type="button" onclick="selectQuickChapter('Light - Reflection and Refraction')" class="text-xs px-2.5 py-1 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg transition">Light & Optics</button>
-                        <button type="button" onclick="selectQuickChapter('Chemical Reactions and Equations')" class="text-xs px-2.5 py-1 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg transition">Chemical Reactions</button>
-                        <button type="button" onclick="selectQuickChapter('Electric Current and Circuits')" class="text-xs px-2.5 py-1 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg transition">Electricity</button>
-                        <button type="button" onclick="selectQuickChapter('Cell: The Unit of Life')" class="text-xs px-2.5 py-1 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg transition">Cell Biology</button>
+                        <span class="text-xs text-slate-400 font-medium">Popular Topics:</span>
+                        <button type="button" onclick="selectQuickChapter('Light - Reflection and Refraction')" class="text-xs px-2.5 py-1 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg transition border border-slate-200 dark:border-slate-700">Light & Optics</button>
+                        <button type="button" onclick="selectQuickChapter('Chemical Reactions and Equations')" class="text-xs px-2.5 py-1 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg transition border border-slate-200 dark:border-slate-700">Chemical Reactions</button>
+                        <button type="button" onclick="selectQuickChapter('Electric Current and Circuits')" class="text-xs px-2.5 py-1 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg transition border border-slate-200 dark:border-slate-700">Electricity & Circuits</button>
+                        <button type="button" onclick="selectQuickChapter('Cell: The Unit of Life')" class="text-xs px-2.5 py-1 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg transition border border-slate-200 dark:border-slate-700">Cell Biology</button>
                     </div>
                 </div>
 
-                <!-- Select Dropdowns Row -->
+                <!-- Dropdowns Row -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
                             3. Class / Grade
                         </label>
                         <div class="relative">
-                            <select id="classSelect" class="w-full appearance-none pl-4 pr-10 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-slate-900 dark:text-white font-medium">
+                            <select id="classSelect" class="w-full appearance-none pl-4 pr-10 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none text-slate-900 dark:text-white font-medium cursor-pointer">
                                 <option value="Class 10" selected>Class 10</option>
                                 <option value="Class 12">Class 12</option>
                                 <option value="Class 11">Class 11</option>
                                 <option value="Class 9">Class 9</option>
                                 <option value="Class 8">Class 8</option>
-                                <option value="Class 7">Class 7</option>
-                                <option value="Class 6">Class 6</option>
                             </select>
                             <i data-lucide="chevron-down" class="w-5 h-5 absolute right-3 top-3.5 text-slate-400 pointer-events-none"></i>
                         </div>
@@ -240,12 +241,11 @@
                             4. Educational Board
                         </label>
                         <div class="relative">
-                            <select id="boardSelect" class="w-full appearance-none pl-4 pr-10 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-slate-900 dark:text-white font-medium">
+                            <select id="boardSelect" class="w-full appearance-none pl-4 pr-10 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none text-slate-900 dark:text-white font-medium cursor-pointer">
                                 <option value="CBSE" selected>CBSE (Central Board)</option>
                                 <option value="ICSE">ICSE / ISC</option>
-                                <option value="State Board">State Board (MH/UP/TN/etc.)</option>
-                                <option value="IB">IB (International Baccalaureate)</option>
-                                <option value="IGCSE">IGCSE / Cambridge</option>
+                                <option value="State Board">State Board</option>
+                                <option value="IB / Cambridge">IB / IGCSE</option>
                             </select>
                             <i data-lucide="chevron-down" class="w-5 h-5 absolute right-3 top-3.5 text-slate-400 pointer-events-none"></i>
                         </div>
@@ -253,7 +253,7 @@
                 </div>
 
                 <!-- Action Button -->
-                <button type="button" onclick="generateNotes()" class="w-full py-4 px-6 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-lg rounded-xl shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 active:scale-[0.99] transition transform flex items-center justify-center space-x-2">
+                <button type="button" onclick="generateNotes()" class="w-full py-4 px-6 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-lg rounded-xl shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 active:scale-[0.99] transition transform flex items-center justify-center space-x-2 cursor-pointer">
                     <i data-lucide="sparkles" class="w-5 h-5 animate-pulse"></i>
                     <span>Generate World's Best Notes</span>
                 </button>
@@ -274,7 +274,7 @@
                     <h3 class="text-xl font-bold text-slate-900 dark:text-white">Generating Handwritten Masterpiece...</h3>
                     <p id="loadingTip" class="text-sm text-slate-500 dark:text-slate-400 mt-2 h-6">Analyzing NCERT textbook patterns & topper notes...</p>
                 </div>
-                <div class="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+                <div class="w-full bg-slate-100 dark:bg-slate-800 h-2.5 rounded-full overflow-hidden">
                     <div id="loadingProgress" class="bg-gradient-to-r from-blue-600 to-indigo-600 h-full w-0 transition-all duration-300"></div>
                 </div>
             </div>
@@ -287,15 +287,15 @@
             <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-4 shadow-md flex flex-wrap items-center justify-between gap-4">
                 
                 <div class="flex items-center space-x-3">
-                    <button onclick="backToSearch()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300">
+                    <button onclick="resetApp()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition-colors">
                         <i data-lucide="arrow-left" class="w-5 h-5"></i>
                     </button>
                     <div>
                         <div class="flex items-center space-x-2">
                             <h2 id="displayChapterTitle" class="text-lg font-bold text-slate-900 dark:text-white">Chapter Title</h2>
-                            <span id="displayFocusBadge" class="text-xs px-2 py-0.5 rounded-full font-semibold bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300">Board Exam</span>
+                            <span id="displayFocusBadge" class="text-xs px-2.5 py-0.5 rounded-full font-semibold bg-blue-100 text-blue-700 dark:bg-blue-950 dark:text-blue-300 border border-blue-200 dark:border-blue-800">Board Exam</span>
                         </div>
-                        <p id="displayMeta" class="text-xs text-slate-500 dark:text-slate-400">Class 10 • CBSE • 3 Pages Generated</p>
+                        <p id="displayMeta" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Class 10 • CBSE • 3 Pages Generated</p>
                     </div>
                 </div>
 
@@ -303,53 +303,57 @@
                 <div class="flex items-center flex-wrap gap-2">
                     
                     <!-- Font Selector -->
-                    <div class="flex items-center space-x-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg">
-                        <i data-lucide="type" class="w-4 h-4 ml-2 text-slate-400"></i>
-                        <select id="fontSelect" onchange="changeHandwritingFont(this.value)" class="bg-transparent text-xs font-medium text-slate-700 dark:text-slate-300 outline-none pr-2 cursor-pointer">
-                            <option value="font-caveat">Caveat (Cursive)</option>
+                    <div class="flex items-center space-x-1 bg-slate-100 dark:bg-slate-800 p-1.5 rounded-lg border border-slate-200 dark:border-slate-700">
+                        <i data-lucide="type" class="w-4 h-4 ml-1 text-slate-400"></i>
+                        <select id="fontSelect" onchange="changeHandwritingFont(this.value)" class="bg-transparent text-xs font-medium text-slate-700 dark:text-slate-200 outline-none pr-1 cursor-pointer">
                             <option value="font-patrick" selected>Patrick Hand</option>
+                            <option value="font-caveat">Caveat (Cursive)</option>
                             <option value="font-kalam">Kalam (Neat)</option>
                             <option value="font-architect">Architects</option>
                         </select>
                     </div>
 
-                    <!-- Paper Theme Selector -->
-                    <div class="flex items-center space-x-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg">
-                        <button onclick="setPaperStyle('ruled')" id="btnPaperRuled" class="px-2 py-1 text-xs font-semibold rounded bg-white dark:bg-slate-700 shadow-sm text-slate-800 dark:text-white">Ruled</button>
-                        <button onclick="setPaperStyle('grid')" id="btnPaperGrid" class="px-2 py-1 text-xs font-semibold rounded text-slate-600 dark:text-slate-400">Grid</button>
-                        <button onclick="setPaperStyle('blank')" id="btnPaperBlank" class="px-2 py-1 text-xs font-semibold rounded text-slate-600 dark:text-slate-400">Blank</button>
+                    <!-- Paper Style Selector -->
+                    <div class="flex items-center space-x-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg border border-slate-200 dark:border-slate-700">
+                        <button onclick="setPaperStyle('ruled')" id="btnPaperRuled" class="px-2.5 py-1 text-xs font-semibold rounded bg-white dark:bg-slate-700 text-slate-800 dark:text-white shadow-sm transition">Ruled</button>
+                        <button onclick="setPaperStyle('grid')" id="btnPaperGrid" class="px-2.5 py-1 text-xs font-semibold rounded text-slate-600 dark:text-slate-400 transition">Grid</button>
+                        <button onclick="setPaperStyle('blank')" id="btnPaperBlank" class="px-2.5 py-1 text-xs font-semibold rounded text-slate-600 dark:text-slate-400 transition">Blank</button>
                     </div>
 
                     <!-- Ink Color Selector -->
-                    <div class="flex items-center space-x-1 bg-slate-100 dark:bg-slate-800 p-1.5 rounded-lg">
-                        <button onclick="changeInkColor('text-blue-900 dark:text-blue-200')" class="w-4 h-4 rounded-full bg-blue-800 ring-2 ring-transparent focus:ring-blue-500"></button>
-                        <button onclick="changeInkColor('text-slate-900 dark:text-slate-100')" class="w-4 h-4 rounded-full bg-slate-900 dark:bg-slate-100 ring-2 ring-transparent focus:ring-slate-500"></button>
-                        <button onclick="changeInkColor('text-indigo-900 dark:text-indigo-200')" class="w-4 h-4 rounded-full bg-indigo-900 ring-2 ring-transparent focus:ring-indigo-500"></button>
+                    <div class="flex items-center space-x-1.5 bg-slate-100 dark:bg-slate-800 p-1.5 rounded-lg border border-slate-200 dark:border-slate-700">
+                        <button onclick="changeInkColor('text-blue-900 dark:text-blue-200')" title="Blue Ink" class="w-5 h-5 rounded-full bg-blue-800 ring-2 ring-offset-1 ring-blue-500 hover:scale-110 transition"></button>
+                        <button onclick="changeInkColor('text-slate-900 dark:text-slate-100')" title="Black Ink" class="w-5 h-5 rounded-full bg-slate-900 dark:bg-slate-200 hover:scale-110 transition"></button>
+                        <button onclick="changeInkColor('text-purple-900 dark:text-purple-200')" title="Violet Ink" class="w-5 h-5 rounded-full bg-purple-900 hover:scale-110 transition"></button>
                     </div>
 
-                    <!-- View Switcher Tabs -->
-                    <div class="flex items-center bg-slate-100 dark:bg-slate-800 p-1 rounded-lg">
+                    <!-- Mode View Tabs -->
+                    <div class="flex items-center bg-slate-100 dark:bg-slate-800 p-1 rounded-lg border border-slate-200 dark:border-slate-700">
                         <button onclick="switchView('notes')" id="tabNotes" class="px-3 py-1 text-xs font-semibold rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm flex items-center space-x-1">
                             <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
                             <span>Notes</span>
                         </button>
-                        <button onclick="switchView('flashcards')" id="tabFlashcards" class="px-3 py-1 text-xs font-semibold rounded-md text-slate-600 dark:text-slate-400 flex items-center space-x-1 hover:text-slate-900">
+                        <button onclick="switchView('flashcards')" id="tabFlashcards" class="px-3 py-1 text-xs font-semibold rounded-md text-slate-600 dark:text-slate-400 flex items-center space-x-1 hover:text-slate-900 dark:hover:text-white transition">
                             <i data-lucide="layers" class="w-3.5 h-3.5"></i>
                             <span>Flashcards</span>
                         </button>
-                        <button onclick="switchView('quiz')" id="tabQuiz" class="px-3 py-1 text-xs font-semibold rounded-md text-slate-600 dark:text-slate-400 flex items-center space-x-1 hover:text-slate-900">
+                        <button onclick="switchView('quiz')" id="tabQuiz" class="px-3 py-1 text-xs font-semibold rounded-md text-slate-600 dark:text-slate-400 flex items-center space-x-1 hover:text-slate-900 dark:hover:text-white transition">
                             <i data-lucide="help-circle" class="w-3.5 h-3.5"></i>
                             <span>Quiz</span>
                         </button>
                     </div>
 
-                    <!-- Bookmark & Export Actions -->
-                    <button onclick="toggleCurrentBookmark()" id="bookmarkBtn" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-600 dark:text-slate-300">
-                        <i data-lucide="bookmark" class="w-5 h-5"></i>
+                    <!-- Edit Toggle & Bookmark/Export Actions -->
+                    <button onclick="toggleEditMode()" id="editNotesBtn" class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-semibold flex items-center space-x-1 border border-slate-200 dark:border-slate-700">
+                        <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+                        <span id="editBtnText">Edit Notes</span>
                     </button>
-                    <button onclick="downloadPDFMock()" class="px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-bold flex items-center space-x-1 shadow">
+                    <button onclick="toggleCurrentBookmark()" id="bookmarkBtn" title="Bookmark Note" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition">
+                        <i data-lucide="bookmark" class="w-4 h-4"></i>
+                    </button>
+                    <button onclick="downloadPDFMock()" class="px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-bold flex items-center space-x-1 shadow-sm transition">
                         <i data-lucide="download" class="w-4 h-4"></i>
-                        <span>Download PDF</span>
+                        <span>Export PDF / Print</span>
                     </button>
                 </div>
             </div>
@@ -357,23 +361,623 @@
             <!-- VIEW 1: HANDWRITTEN NOTES READER -->
             <div id="viewNotes" class="flex-1 flex flex-col items-center">
                 
+                <!-- Page Selector Control Bar -->
+                <div class="flex items-center justify-between w-full max-w-4xl mb-4 bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                    <button onclick="navigatePage(-1)" class="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg text-xs font-semibold flex items-center space-x-1">
+                        <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                        <span>Previous Page</span>
+                    </button>
+                    <span id="pageIndicator" class="text-xs font-bold text-slate-700 dark:text-slate-300">Page 1 of 3</span>
+                    <button onclick="navigatePage(1)" class="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg text-xs font-semibold flex items-center space-x-1">
+                        <span>Next Page</span>
+                        <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
                 <!-- Pages Wrapper -->
                 <div id="notebookContainer" class="w-full max-w-4xl space-y-8">
                     <!-- Dynamic Page Elements Rendered Here -->
-                </div>
-
-                <!-- Page Pagination Floating Bar -->
-                <div class="sticky bottom-6 mt-6 bg-slate-900/90 text-white backdrop-blur px-4 py-2 rounded-full shadow-2xl flex items-center space-x-4 border border-slate-700">
-                    <button onclick="navigatePage(-1)" class="hover:text-indigo-400"><i data-lucide="chevron-left" class="w-5 h-5"></i></button>
-                    <span id="pageIndicator" class="text-xs font-semibold">Page 1 of 3</span>
-                    <button onclick="navigatePage(1)" class="hover:text-indigo-400"><i data-lucide="chevron-right" class="w-5 h-5"></i></button>
                 </div>
             </div>
 
             <!-- VIEW 2: FLASHCARDS -->
             <div id="viewFlashcards" class="hidden flex-1 flex flex-col items-center justify-center py-8">
                 <div class="w-full max-w-md">
-                    <div id="flashcardElement" onclick="flipFlashcard()" class="w-full h-80 bg-white dark:bg-slate-900 border-2 border-indigo-200 dark:border-indigo-800 rounded-2xl shadow-xl p-8 flex flex-col justify-between cursor-pointer transform transition-transform duration-500 hover:scale-[1.02] relative">
+                    <div id="flashcardElement" onclick="flipFlashcard()" class="w-full h-80 bg-white dark:bg-slate-900 border-2 border-indigo-200 dark:border-indigo-800 rounded-2xl shadow-xl p-8 flex flex-col justify-between cursor-pointer transform transition-transform duration-300 hover:scale-[1.02] relative select-none">
                         <div class="flex justify-between items-center text-xs text-slate-400 font-semibold uppercase">
-                            <span id="fcTag">Key Term</span>
-                            <span id="fcIndex">1
+                            <span id="fcTag">Key Concept</span>
+                            <span id="fcIndex">1 / 5</span>
+                        </div>
+                        
+                        <div class="my-auto text-center">
+                            <div id="fcFront" class="text-xl font-bold text-slate-800 dark:text-slate-100">
+                                Click to reveal answer
+                            </div>
+                            <div id="fcBack" class="hidden text-lg font-medium text-indigo-600 dark:text-indigo-400">
+                                Detailed explanation will appear here.
+                            </div>
+                        </div>
+
+                        <div class="flex justify-center items-center text-xs text-slate-400">
+                            <i data-lucide="rotate-cw" class="w-3.5 h-3.5 mr-1"></i> Tap card to flip
+                        </div>
+                    </div>
+
+                    <!-- Flashcard Controls -->
+                    <div class="flex items-center justify-between mt-6">
+                        <button onclick="prevFlashcard()" class="px-4 py-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-xl text-sm font-semibold flex items-center space-x-1">
+                            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                            <span>Previous</span>
+                        </button>
+                        <button onclick="nextFlashcard()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-semibold flex items-center space-x-1 shadow">
+                            <span>Next Card</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 3: PRACTICE QUIZ -->
+            <div id="viewQuiz" class="hidden flex-1 max-w-3xl mx-auto w-full py-6">
+                <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xl p-6 sm:p-8 space-y-6">
+                    <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
+                        <div>
+                            <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">Exam Practice Quiz</span>
+                            <h3 id="quizTitle" class="text-xl font-bold text-slate-900 dark:text-white mt-1">Topic Quiz</h3>
+                        </div>
+                        <span id="quizScoreBadge" class="px-3 py-1 bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-300 rounded-full text-xs font-bold border border-indigo-200 dark:border-indigo-800">Score: 0/0</span>
+                    </div>
+
+                    <div id="quizContainer" class="space-y-6">
+                        <!-- Questions dynamically rendered -->
+                    </div>
+
+                    <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-end">
+                        <button onclick="resetQuiz()" class="px-4 py-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-sm font-semibold rounded-xl transition">
+                            Reset Quiz
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Saved Notes Modal -->
+    <div id="savedNotesModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm">
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl max-w-xl w-full p-6 space-y-4">
+            <div class="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-3">
+                <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center space-x-2">
+                    <i data-lucide="bookmark" class="w-5 h-5 text-indigo-500"></i>
+                    <span>Saved Notes Library</span>
+                </h3>
+                <button onclick="closeSavedBookmarksModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            
+            <div id="savedNotesList" class="max-h-80 overflow-y-auto space-y-3">
+                <!-- Dynamically populated bookmarks -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Script Engine -->
+    <script>
+        // App State Management
+        let appState = {
+            darkMode: false,
+            currentView: 'notes',
+            selectedFocus: 'Board Exam',
+            currentChapter: 'Light - Reflection and Refraction',
+            classGrade: 'Class 10',
+            board: 'CBSE',
+            currentFont: 'font-patrick',
+            paperStyle: 'ruled',
+            inkColor: 'text-blue-900 dark:text-blue-200',
+            currentPage: 1,
+            totalPages: 3,
+            currentFlashcardIndex: 0,
+            flashcardsFlipped: false,
+            savedBookmarks: [],
+            isEditable: false,
+            generatedData: null
+        };
+
+        // Standardized Topic Database
+        const mockDatabase = {
+            'Light - Reflection and Refraction': {
+                pages: [
+                    {
+                        heading: "1. Reflection of Light & Laws",
+                        content: `Reflection is the phenomenon of bouncing back of light rays when hit on a polished surface.
+                        
+<span class="hl-yellow font-bold">Laws of Reflection:</span>
+1. Angle of incidence (∠i) is equal to angle of reflection (∠r).
+2. Incident ray, reflected ray & normal at point of incidence all lie in the same plane.
+
+<span class="hl-green font-bold">★ Spherical Mirrors:</span>
+• <strong class="text-indigo-600">Concave Mirror:</strong> Converging mirror (e.g. Shaving mirrors, Solar furnaces).
+• <strong class="text-indigo-600">Convex Mirror:</strong> Diverging mirror (e.g. Rear view mirrors in vehicles - wider field of view).`,
+                        diagram: `<svg viewBox="0 0 300 120" class="w-full h-32 stroke-current text-slate-700 dark:text-slate-200 fill-none" stroke-width="2">
+                            <line x1="20" y1="90" x2="280" y2="90" stroke-dasharray="4" />
+                            <path d="M 40 90 Q 150 20 260 90" />
+                            <circle cx="150" cy="55" r="3" fill="currentColor" />
+                            <text x="145" y="45" class="text-xs" font-family="sans-serif">Focus (F)</text>
+                            <circle cx="150" cy="90" r="3" fill="currentColor" />
+                            <text x="145" y="105" class="text-xs" font-family="sans-serif">Pole (P)</text>
+                        </svg>`,
+                        trick: "Topper Trick: Concave mirrors always form real & inverted images EXCEPT when object is between Pole (P) and Focus (F)!"
+                    },
+                    {
+                        heading: "2. Mirror Formula & Magnification",
+                        content: `<span class="hl-pink font-bold">Mirror Formula:</span>
+1 / f = 1 / v + 1 / u
+where f = focal length, v = image distance, u = object distance.
+
+<span class="hl-blue font-bold">Magnification (m):</span>
+m = h' / h = - (v / u)
+• If m is negative, image is <strong class="underline">Real & Inverted</strong>.
+• If m is positive, image is <strong class="underline">Virtual & Erect</strong>.`,
+                        diagram: `<div class="p-3 border-2 border-dashed border-indigo-400 bg-indigo-50/50 dark:bg-indigo-950/40 rounded-xl my-2">
+                            <span class="font-bold text-xs uppercase text-indigo-600 dark:text-indigo-400">Sign Convention Box</span>
+                            <ul class="text-xs list-disc pl-4 mt-1 space-y-1">
+                                <li>Object distance (u) is ALWAYS negative (-).</li>
+                                <li>Focal length (f) for Concave is Negative (-), Convex is Positive (+).</li>
+                            </ul>
+                        </div>`,
+                        trick: "NEET/JEE Shortcut: m = f / (f - u) directly calculates magnification without finding v!"
+                    },
+                    {
+                        heading: "3. Refraction & Lens Formula",
+                        content: `Refraction is the bending of light when travelling from one optical medium to another due to change in speed.
+
+<span class="hl-yellow font-bold">Snell's Law:</span> sin(i) / sin(r) = Refractive Index (n21)
+
+<span class="hl-green font-bold">Lens Formula & Power:</span>
+1 / f = 1 / v - 1 / u
+Power (P) = 1 / f (in meters) | Unit: Dioptre (D)`,
+                        diagram: `<svg viewBox="0 0 300 100" class="w-full h-28 stroke-current text-slate-700 dark:text-slate-200 fill-none" stroke-width="2">
+                            <ellipse cx="150" cy="50" rx="20" ry="40" />
+                            <line x1="20" y1="50" x2="280" y2="50" stroke-dasharray="4" />
+                            <text x="120" y="25" class="text-xs" font-family="sans-serif">Convex Lens</text>
+                        </svg>`,
+                        trick: "Power of Convex Lens = Positive (+D), Power of Concave Lens = Negative (-D)."
+                    }
+                ],
+                flashcards: [
+                    { front: "What is Snell's Law?", back: "sin(i) / sin(r) = Refractive Index (n)", tag: "Optics" },
+                    { front: "State Mirror Formula", back: "1/f = 1/v + 1/u", tag: "Formulas" },
+                    { front: "Sign of focal length for Concave Mirror?", back: "Always Negative (-)", tag: "Concepts" },
+                    { front: "Definition of Power of Lens?", back: "P = 1/f (in meters). SI unit is Dioptre (D).", tag: "Definitions" },
+                    { front: "Nature of image formed by Convex Mirror?", back: "Always Virtual, Erect, and Diminished.", tag: "Key Points" }
+                ],
+                quiz: [
+                    { q: "Which mirror is used by dentists to view large images of teeth?", opts: ["Convex Mirror", "Concave Mirror", "Plane Mirror", "Cylindrical Lens"], a: 1 },
+                    { q: "The SI unit of power of lens is:", opts: ["Meter", "Watt", "Dioptre", "Joule"], a: 2 },
+                    { q: "For a real object, which mirror always forms a virtual image?", opts: ["Concave Mirror", "Convex Mirror", "Plane Mirror", "Both Convex & Plane"], a: 3 }
+                ]
+            }
+        };
+
+        // Initialize App
+        window.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            loadSavedBookmarksFromStorage();
+        });
+
+        // Theme Toggle
+        function toggleDarkMode() {
+            appState.darkMode = !appState.darkMode;
+            document.documentElement.classList.toggle('dark', appState.darkMode);
+        }
+
+        // Focus Selection Handler
+        function updateFocusSelection(focusType) {
+            appState.selectedFocus = focusType;
+            
+            document.querySelectorAll('.focus-card').forEach(card => {
+                card.classList.remove('border-indigo-500', 'bg-indigo-50/50', 'dark:bg-indigo-950/30');
+                card.classList.add('border-slate-200', 'dark:border-slate-800', 'bg-slate-50/50');
+                const indicator = card.querySelector('.focus-indicator');
+                if (indicator) indicator.className = 'focus-indicator w-3 h-3 rounded-full bg-transparent';
+            });
+
+            let activeId = 'card-board';
+            if (focusType === 'Competitive Exam') activeId = 'card-competitive';
+            if (focusType === 'Foundation') activeId = 'card-foundation';
+
+            const activeCard = document.getElementById(activeId);
+            if (activeCard) {
+                activeCard.classList.remove('border-slate-200', 'dark:border-slate-800', 'bg-slate-50/50');
+                activeCard.classList.add('border-indigo-500', 'bg-indigo-50/50', 'dark:bg-indigo-950/30');
+                const indicator = activeCard.querySelector('.focus-indicator');
+                if (indicator) indicator.className = 'focus-indicator w-3 h-3 rounded-full bg-indigo-600';
+            }
+        }
+
+        // Search Suggestions
+        function handleSearchSuggestions(val) {
+            const box = document.getElementById('suggestionsBox');
+            if (!val.trim()) {
+                box.classList.add('hidden');
+                return;
+            }
+            const topics = [
+                'Light - Reflection and Refraction',
+                'Chemical Reactions and Equations',
+                'Electric Current and Circuits',
+                'Cell: The Unit of Life',
+                'Periodic Classification of Elements',
+                'Life Processes & Digestion'
+            ];
+            const filtered = topics.filter(t => t.toLowerCase().includes(val.toLowerCase()));
+            if (filtered.length === 0) {
+                box.classList.add('hidden');
+                return;
+            }
+            box.innerHTML = filtered.map(t => `
+                <div onclick="selectQuickChapter('${t}')" class="px-4 py-2.5 hover:bg-slate-100 dark:hover:bg-slate-700 text-sm cursor-pointer text-slate-800 dark:text-slate-200 font-medium">
+                    ${t}
+                </div>
+            `).join('');
+            box.classList.remove('hidden');
+        }
+
+        function selectQuickChapter(title) {
+            document.getElementById('chapterInput').value = title;
+            document.getElementById('suggestionsBox').classList.add('hidden');
+        }
+
+        // Generate Dynamic Notes Data based on requested topic
+        function generateDynamicTopicData(title, focus) {
+            return {
+                pages: [
+                    {
+                        heading: `1. Introduction to ${title}`,
+                        content: `Comprehensive overview of <span class="hl-yellow font-bold">${title}</span> structured specifically for <strong>${focus}</strong> requirements.
+                        
+<span class="hl-green font-bold">Key Core Concepts:</span>
+• Step-by-step fundamental principles with diagrams.
+• Standard terminology & mandatory exam definitions.
+• Important board derivation steps and formulas.`,
+                        diagram: `<div class="p-4 border border-indigo-300 dark:border-indigo-800 bg-indigo-50/40 dark:bg-indigo-950/30 rounded-xl text-center">
+                            <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400">CONCEPT DIAGRAM: ${title.toUpperCase()}</span>
+                            <div class="h-20 flex items-center justify-center text-xs text-slate-500 italic mt-2">[ Schematic diagram with key labelled components ]</div>
+                        </div>`,
+                        trick: `Topper Tip for ${focus}: Always structure your final answer with neat bullet points, highlighted formulas, and standard SI units!`
+                    },
+                    {
+                        heading: "2. Key Formulas & Standard Equations",
+                        content: `<span class="hl-pink font-bold">Master Formula List:</span>
+• Standard Equation 1: Primary Relationship
+• Standard Equation 2: Derived Application Form
+
+<span class="hl-blue font-bold">Unit Conversions & Constants:</span>
+• Always check for SI unit alignment before calculation.`,
+                        diagram: null,
+                        trick: "Speed Hack: Memorize dimensional formulas to instantly eliminate invalid numerical options!"
+                    }
+                ],
+                flashcards: [
+                    { front: `What is the primary definition in ${title}?`, back: "Key conceptual definition as per board syllabus standards.", tag: "Basics" },
+                    { front: "What are the common exam traps?", back: "Watch out for unit conversions and sign conventions.", tag: "Exams" }
+                ],
+                quiz: [
+                    { q: `What is the core principle behind ${title}?`, opts: ["Option A", "Option B (Correct)", "Option C", "Option D"], a: 1 }
+                ]
+            };
+        }
+
+        // Generate Notes Action
+        function generateNotes() {
+            const topic = document.getElementById('chapterInput').value.trim() || 'Light - Reflection and Refraction';
+            appState.currentChapter = topic;
+            appState.classGrade = document.getElementById('classSelect').value;
+            appState.board = document.getElementById('boardSelect').value;
+
+            document.getElementById('inputSection').classList.add('hidden');
+            document.getElementById('loadingSection').classList.remove('hidden');
+
+            const loadingTips = [
+                "Analyzing NCERT textbook patterns & topper notes...",
+                "Formatting formula cards & memory shortcuts...",
+                "Drafting clean diagrams & step-marking highlights...",
+                "Finalizing handwritten styling & quiz questions..."
+            ];
+
+            let step = 0;
+            const progress = document.getElementById('loadingProgress');
+            const tip = document.getElementById('loadingTip');
+
+            const interval = setInterval(() => {
+                step += 25;
+                progress.style.width = step + '%';
+                if (loadingTips[step / 25 - 1]) {
+                    tip.textContent = loadingTips[step / 25 - 1];
+                }
+                if (step >= 100) {
+                    clearInterval(interval);
+                    document.getElementById('loadingSection').classList.add('hidden');
+                    document.getElementById('resultsSection').classList.remove('hidden');
+                    renderResultsData();
+                }
+            }, 300);
+        }
+
+        function renderResultsData() {
+            const data = mockDatabase[appState.currentChapter] || generateDynamicTopicData(appState.currentChapter, appState.selectedFocus);
+            appState.generatedData = data;
+            appState.totalPages = data.pages.length;
+            appState.currentPage = 1;
+
+            document.getElementById('displayChapterTitle').textContent = appState.currentChapter;
+            document.getElementById('displayFocusBadge').textContent = appState.selectedFocus;
+            document.getElementById('displayMeta').textContent = `${appState.classGrade} • ${appState.board} • ${data.pages.length} Pages Generated`;
+
+            renderPages();
+            renderFlashcard();
+            renderQuiz();
+            updateBookmarkButtonState();
+        }
+
+        // Render Handwritten Pages
+        function renderPages() {
+            const container = document.getElementById('notebookContainer');
+            const data = appState.generatedData || mockDatabase['Light - Reflection and Refraction'];
+
+            container.innerHTML = data.pages.map((p, idx) => `
+                <div class="notebook-page paper-${appState.paperStyle} rounded-2xl border border-slate-200 dark:border-slate-800 p-6 sm:p-10 shadow-lg transition-all ${idx + 1 === appState.currentPage ? 'block' : 'hidden'}">
+                    <div class="flex justify-between items-center border-b border-rose-300 dark:border-rose-900/60 pb-3 mb-6">
+                        <span class="text-xs font-bold uppercase tracking-wider text-rose-500">${appState.currentChapter}</span>
+                        <span class="text-xs font-semibold text-slate-400">Page ${idx + 1} of ${data.pages.length}</span>
+                    </div>
+
+                    <h2 contenteditable="${appState.isEditable}" class="text-2xl font-bold mb-4 text-slate-900 dark:text-slate-100 ${appState.currentFont}">${p.heading}</h2>
+
+                    <div contenteditable="${appState.isEditable}" class="${appState.currentFont} ${appState.inkColor} handwritten text-lg leading-relaxed space-y-4">
+                        ${p.content}
+                    </div>
+
+                    ${p.diagram ? `<div class="my-6 p-4 border border-slate-200 dark:border-slate-800 bg-white/60 dark:bg-slate-900/60 rounded-xl shadow-inner">${p.diagram}</div>` : ''}
+
+                    ${p.trick ? `
+                        <div class="mt-6 p-4 bg-amber-50/80 dark:bg-amber-950/30 border-l-4 border-amber-500 rounded-r-xl">
+                            <div class="flex items-center space-x-2 text-amber-800 dark:text-amber-300 font-bold text-sm">
+                                <i data-lucide="zap" class="w-4 h-4"></i>
+                                <span>Topper Memory Trick</span>
+                            </div>
+                            <p contenteditable="${appState.isEditable}" class="${appState.currentFont} text-amber-900 dark:text-amber-200 text-base mt-1">${p.trick}</p>
+                        </div>
+                    ` : ''}
+                </div>
+            `).join('');
+
+            document.getElementById('pageIndicator').textContent = `Page ${appState.currentPage} of ${appState.totalPages}`;
+            lucide.createIcons();
+        }
+
+        // Page Navigation Controls
+        function navigatePage(dir) {
+            appState.currentPage += dir;
+            if (appState.currentPage < 1) appState.currentPage = 1;
+            if (appState.currentPage > appState.totalPages) appState.currentPage = appState.totalPages;
+            renderPages();
+        }
+
+        // Customization Controls
+        function changeHandwritingFont(fontClass) {
+            appState.currentFont = fontClass;
+            renderPages();
+        }
+
+        function setPaperStyle(style) {
+            appState.paperStyle = style;
+            ['Ruled', 'Grid', 'Blank'].forEach(s => {
+                const btn = document.getElementById(`btnPaper${s}`);
+                if (s.toLowerCase() === style) {
+                    btn.className = "px-2.5 py-1 text-xs font-semibold rounded bg-white dark:bg-slate-700 text-slate-800 dark:text-white shadow-sm transition";
+                } else {
+                    btn.className = "px-2.5 py-1 text-xs font-semibold rounded text-slate-600 dark:text-slate-400 transition";
+                }
+            });
+            renderPages();
+        }
+
+        function changeInkColor(colorClass) {
+            appState.inkColor = colorClass;
+            renderPages();
+        }
+
+        // View Switcher
+        function switchView(view) {
+            appState.currentView = view;
+            ['Notes', 'Flashcards', 'Quiz'].forEach(v => {
+                const tab = document.getElementById(`tab${v}`);
+                const viewEl = document.getElementById(`view${v}`);
+                if (v.toLowerCase() === view) {
+                    tab.className = "px-3 py-1 text-xs font-semibold rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm flex items-center space-x-1";
+                    viewEl.classList.remove('hidden');
+                } else {
+                    tab.className = "px-3 py-1 text-xs font-semibold rounded-md text-slate-600 dark:text-slate-400 flex items-center space-x-1 hover:text-slate-900";
+                    viewEl.classList.add('hidden');
+                }
+            });
+        }
+
+        // Flashcards Logic
+        function renderFlashcard() {
+            const data = appState.generatedData || mockDatabase['Light - Reflection and Refraction'];
+            const card = data.flashcards[appState.currentFlashcardIndex];
+            document.getElementById('fcTag').textContent = card.tag;
+            document.getElementById('fcIndex').textContent = `${appState.currentFlashcardIndex + 1} / ${data.flashcards.length}`;
+            document.getElementById('fcFront').textContent = card.front;
+            document.getElementById('fcBack').textContent = card.back;
+            document.getElementById('fcBack').classList.add('hidden');
+            appState.flashcardsFlipped = false;
+        }
+
+        function flipFlashcard() {
+            const back = document.getElementById('fcBack');
+            appState.flashcardsFlipped = !appState.flashcardsFlipped;
+            if (appState.flashcardsFlipped) {
+                back.classList.remove('hidden');
+            } else {
+                back.classList.add('hidden');
+            }
+        }
+
+        function nextFlashcard() {
+            const data = appState.generatedData || mockDatabase['Light - Reflection and Refraction'];
+            appState.currentFlashcardIndex = (appState.currentFlashcardIndex + 1) % data.flashcards.length;
+            renderFlashcard();
+        }
+
+        function prevFlashcard() {
+            const data = appState.generatedData || mockDatabase['Light - Reflection and Refraction'];
+            appState.currentFlashcardIndex = (appState.currentFlashcardIndex - 1 + data.flashcards.length) % data.flashcards.length;
+            renderFlashcard();
+        }
+
+        // Quiz Logic
+        function renderQuiz() {
+            const data = appState.generatedData || mockDatabase['Light - Reflection and Refraction'];
+            const container = document.getElementById('quizContainer');
+            document.getElementById('quizTitle').textContent = appState.currentChapter;
+
+            container.innerHTML = data.quiz.map((q, qIdx) => `
+                <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 space-y-3">
+                    <p class="font-bold text-slate-900 dark:text-white text-sm sm:text-base">${qIdx + 1}. ${q.q}</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        ${q.opts.map((opt, oIdx) => `
+                            <button onclick="checkAnswer(${qIdx}, ${oIdx})" id="q_${qIdx}_o_${oIdx}" class="w-full text-left p-3 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-indigo-50 dark:hover:bg-slate-700 text-xs font-medium text-slate-700 dark:text-slate-200 transition">
+                                ${opt}
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('quizScoreBadge').textContent = `Score: 0/${data.quiz.length}`;
+        }
+
+        let userScore = 0;
+        let answeredQuestions = new Set();
+
+        function checkAnswer(qIdx, optIdx) {
+            if (answeredQuestions.has(qIdx)) return;
+            const data = appState.generatedData || mockDatabase['Light - Reflection and Refraction'];
+            const q = data.quiz[qIdx];
+            const btn = document.getElementById(`q_${qIdx}_o_${optIdx}`);
+
+            if (optIdx === q.a) {
+                btn.className = "w-full text-left p-3 rounded-lg border-2 border-emerald-500 bg-emerald-50 dark:bg-emerald-950 text-xs font-bold text-emerald-800 dark:text-emerald-200";
+                userScore++;
+            } else {
+                btn.className = "w-full text-left p-3 rounded-lg border-2 border-rose-500 bg-rose-50 dark:bg-rose-950 text-xs font-bold text-rose-800 dark:text-rose-200";
+                const correctBtn = document.getElementById(`q_${qIdx}_o_${q.a}`);
+                if (correctBtn) correctBtn.className = "w-full text-left p-3 rounded-lg border-2 border-emerald-500 bg-emerald-50 dark:bg-emerald-950 text-xs font-bold text-emerald-800 dark:text-emerald-200";
+            }
+
+            answeredQuestions.add(qIdx);
+            document.getElementById('quizScoreBadge').textContent = `Score: ${userScore}/${data.quiz.length}`;
+        }
+
+        function resetQuiz() {
+            userScore = 0;
+            answeredQuestions.clear();
+            renderQuiz();
+        }
+
+        // Editable Toggle Mode
+        function toggleEditMode() {
+            appState.isEditable = !appState.isEditable;
+            document.getElementById('editBtnText').textContent = appState.isEditable ? 'Editing On' : 'Edit Notes';
+            renderPages();
+        }
+
+        // Saved Bookmarks Functionality
+        function toggleCurrentBookmark() {
+            const idx = appState.savedBookmarks.findIndex(b => b.title === appState.currentChapter);
+            if (idx >= 0) {
+                appState.savedBookmarks.splice(idx, 1);
+            } else {
+                appState.savedBookmarks.push({
+                    title: appState.currentChapter,
+                    focus: appState.selectedFocus,
+                    classGrade: appState.classGrade,
+                    board: appState.board,
+                    date: new Date().toLocaleDateString()
+                });
+            }
+            saveBookmarksToStorage();
+            updateBookmarkButtonState();
+        }
+
+        function updateBookmarkButtonState() {
+            const btn = document.getElementById('bookmarkBtn');
+            const isSaved = appState.savedBookmarks.some(b => b.title === appState.currentChapter);
+            if (isSaved) {
+                btn.className = "p-2 rounded-lg bg-indigo-100 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 border border-indigo-300 dark:border-indigo-800";
+            } else {
+                btn.className = "p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700";
+            }
+            document.getElementById('bookmarkCountBadge').textContent = appState.savedBookmarks.length;
+        }
+
+        function showSavedBookmarksModal() {
+            const list = document.getElementById('savedNotesList');
+            if (appState.savedBookmarks.length === 0) {
+                list.innerHTML = `<div class="text-center py-8 text-slate-400 text-sm">No saved notes yet. Bookmark any generated notes to view them here later!</div>`;
+            } else {
+                list.innerHTML = appState.savedBookmarks.map(b => `
+                    <div class="p-3 border border-slate-200 dark:border-slate-800 rounded-xl flex items-center justify-between hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                        <div>
+                            <h4 class="font-bold text-sm text-slate-900 dark:text-white">${b.title}</h4>
+                            <p class="text-xs text-slate-500">${b.classGrade} • ${b.board} • ${b.focus}</p>
+                        </div>
+                        <button onclick="loadSavedBookmark('${b.title}')" class="px-3 py-1 bg-indigo-600 text-white rounded-lg text-xs font-semibold">Open</button>
+                    </div>
+                `).join('');
+            }
+            document.getElementById('savedNotesModal').classList.remove('hidden');
+        }
+
+        function closeSavedBookmarksModal() {
+            document.getElementById('savedNotesModal').classList.add('hidden');
+        }
+
+        function loadSavedBookmark(title) {
+            closeSavedBookmarksModal();
+            selectQuickChapter(title);
+            generateNotes();
+        }
+
+        function saveBookmarksToStorage() {
+            try {
+                localStorage.setItem('notevault_saved', JSON.stringify(appState.savedBookmarks));
+            } catch (e) {}
+        }
+
+        function loadSavedBookmarksFromStorage() {
+            try {
+                const stored = localStorage.getItem('notevault_saved');
+                if (stored) {
+                    appState.savedBookmarks = JSON.parse(stored);
+                    updateBookmarkButtonState();
+                }
+            } catch (e) {}
+        }
+
+        function resetApp() {
+            document.getElementById('resultsSection').classList.add('hidden');
+            document.getElementById('loadingSection').classList.add('hidden');
+            document.getElementById('inputSection').classList.remove('hidden');
+        }
+
+        function downloadPDFMock() {
+            window.print();
+        }
+    </script>
+</body>
+</html>
