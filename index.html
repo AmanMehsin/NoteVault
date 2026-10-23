@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NoteVault - World's Best AI Handwritten Notes</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for Realistic Handwriting -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Caveat:wght@400..700&family=Inter:wght@300;400;500;600;700&family=Kalam:wght@300;400;700&family=Patrick+Hand&family=Gochi+Hand&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                        },
+                        paper: {
+                            light: '#fdfbf7',
+                            lines: '#e2e8f0',
+                            dark: '#1e293b',
+                            darklines: '#334155'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        caveat: ['Caveat', 'cursive'],
+                        patrick: ['Patrick Hand', 'cursive'],
+                        kalam: ['Kalam', 'cursive'],
+                        architect: ['Architects Daughter', 'cursive'],
+                        gochi: ['Gochi Hand', 'cursive']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Notebook Lined Background Effects */
+        .paper-ruled {
+            background-color: #fcfbfa;
+            background-image: linear-gradient(#e2e8f0 1px, transparent 1px), linear-gradient(90deg, #fecdd3 1px, transparent 1px);
+            background-size: 100% 1.8rem, 100% 100%;
+            background-position: 0 0, 3.5rem 0;
+        }
+        .dark .paper-ruled {
+            background-color: #0f172a;
+            background-image: linear-gradient(#1e293b 1px, transparent 1px), linear-gradient(90deg, #881337 1px, transparent 1px);
+            background-size: 100% 1.8rem, 100% 100%;
+            background-position: 0 0, 3.5rem 0;
+        }
+        .paper-grid {
+            background-color: #fafaf9;
+            background-image: linear-gradient(#e2e8f0 1px, transparent 1px), linear-gradient(90deg, #e2e8f0 1px, transparent 1px);
+            background-size: 1.5rem 1.5rem;
+        }
+        .dark .paper-grid {
+            background-color: #0f172a;
+            background-image: linear-gradient(#1e293b 1px, transparent 1px), linear-gradient(90deg, #1e293b 1px, transparent 1px);
+            background-size: 1.5rem 1.5rem;
+        }
+
+        /* Handwritten font utility styling */
+        .handwritten {
+            letter-spacing: 0.02em;
+            word-spacing: 0.05em;
+            line-height: 1.8rem;
+        }
+
+        /* Custom Scrollbars */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 9999px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #475569;
+        }
+
+        /* Highlighting Simulation */
+        .hl-yellow { background-color: rgba(254, 240, 138, 0.65); padding: 0 4px; border-radius: 3px; }
+        .hl-green { background-color: rgba(187, 247, 208, 0.65); padding: 0 4px; border-radius: 3px; }
+        .hl-pink { background-color: rgba(fbcfe8, 0.65); padding: 0 4px; border-radius: 3px; }
+        .hl-blue { background-color: rgba(191, 219, 254, 0.65); padding: 0 4px; border-radius: 3px; }
+
+        .dark .hl-yellow { background-color: rgba(161, 98, 7, 0.45); color: #fef08a; }
+        .dark .hl-green { background-color: rgba(21, 128, 61, 0.45); color: #bbf7d0; }
+        .dark .hl-pink { background-color: rgba(190, 24, 93, 0.45); color: #fbcfe8; }
+        .dark .hl-blue { background-color: rgba(29, 78, 216, 0.45); color: #bfdbfe; }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors duration-200">
+
+    <!-- Header / Navbar -->
+    <header class="sticky top-0 z-40 backdrop-blur-md bg-white/80 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="resetApp()">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-violet-600 flex items-center justify-center text-white shadow-lg shadow-blue-500/20">
+                    <i data-lucide="book-open-check" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <span class="text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">NoteVault</span>
+                    <span class="text-xs px-2 py-0.5 ml-2 bg-indigo-100 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 rounded-full font-medium border border-indigo-200 dark:border-indigo-800">AI 3.5</span>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-3">
+                <button id="themeToggleBtn" onclick="toggleDarkMode()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition-colors">
+                    <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
+                    <i data-lucide="moon" class="w-5 h-5 block dark:hidden"></i>
+                </button>
+                <a href="#savedNotes" onclick="showSavedBookmarksModal()" class="flex items-center space-x-1 px-3 py-2 text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors">
+                    <i data-lucide="bookmark" class="w-4 h-4 text-indigo-500"></i>
+                    <span class="hidden sm:inline">Saved Notes</span>
+                    <span id="bookmarkCountBadge" class="bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 text-xs px-1.5 py-0.5 rounded-full font-semibold">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col gap-8">
+        
+        <!-- Hero / Input Form Section -->
+        <section id="inputSection" class="max-w-3xl mx-auto w-full transition-all duration-300">
+            <div class="text-center mb-8">
+                <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-3">
+                    Get <span class="bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600 bg-clip-text text-transparent">World's Best Handwritten Notes</span> in Seconds
+                </h1>
+                <p class="text-slate-600 dark:text-slate-400 text-base sm:text-lg">
+                    AI-curated, exam-targeted handwritten notes with diagrams, formula boxes & toppers' memory tricks.
+                </p>
+            </div>
+
+            <!-- Main Input Form Card -->
+            <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-200/80 dark:border-slate-800 p-6 sm:p-8 space-y-6">
+                
+                <!-- Target Focus Toggle Cards -->
+                <div>
+                    <label class="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">
+                        1. Select Target Exam Focus
+                    </label>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <label class="focus-card relative flex flex-col p-4 rounded-xl border-2 border-indigo-500 bg-indigo-50/50 dark:bg-indigo-950/30 cursor-pointer transition-all hover:shadow-md">
+                            <input type="radio" name="targetFocus" value="Board Exam" checked class="sr-only" onchange="updateFocusStyle(this)">
+                            <div class="flex items-center justify-between mb-2">
+                                <i data-lucide="graduation-cap" class="w-6 h-6 text-indigo-600 dark:text-indigo-400"></i>
+                                <span class="badge w-3 h-3 rounded-full bg-indigo-600"></span>
+                            </div>
+                            <span class="font-bold text-slate-900 dark:text-white text-sm">Board Exams</span>
+                            <span class="text-xs text-slate-500 dark:text-slate-400 mt-1">NCERT, High-scoring step marking, clean diagrams</span>
+                        </label>
+
+                        <label class="focus-card relative flex flex-col p-4 rounded-xl border-2 border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 cursor-pointer transition-all hover:shadow-md">
+                            <input type="radio" name="targetFocus" value="Competitive Exam" class="sr-only" onchange="updateFocusStyle(this)">
+                            <div class="flex items-center justify-between mb-2">
+                                <i data-lucide="zap" class="w-6 h-6 text-amber-500"></i>
+                                <span class="badge w-3 h-3 rounded-full bg-transparent"></span>
+                            </div>
+                            <span class="font-bold text-slate-900 dark:text-white text-sm">JEE / NEET / Olympiads</span>
+                            <span class="text-xs text-slate-500 dark:text-slate-400 mt-1">Shortcuts, advance formulas, edge cases & tricks</span>
+                        </label>
+
+                        <label class="focus-card relative flex flex-col p-4 rounded-xl border-2 border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 cursor-pointer transition-all hover:shadow-md">
+                            <input type="radio" name="targetFocus" value="Foundation" class="sr-only" onchange="updateFocusStyle(this)">
+                            <div class="flex items-center justify-between mb-2">
+                                <i data-lucide="compass" class="w-6 h-6 text-emerald-500"></i>
+                                <span class="badge w-3 h-3 rounded-full bg-transparent"></span>
+                            </div>
+                            <span class="font-bold text-slate-900 dark:text-white text-sm">Foundation & Concept</span>
+                            <span class="text-xs text-slate-500 dark:text-slate-400 mt-1">Simplified breakdown, real-life analogies, fundamentals</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Chapter Name Search/Input -->
+                <div class="relative">
+                    <label class="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
+                        2. Chapter / Topic Name
+                    </label>
+                    <div class="relative">
+                        <input type="text" id="chapterInput" placeholder="e.g. Light - Reflection and Refraction" 
+                            class="w-full pl-11 pr-4 py-3.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition text-slate-900 dark:text-white font-medium"
+                            oninput="handleSearchSuggestions(this.value)" autocomplete="off">
+                        <i data-lucide="search" class="w-5 h-5 absolute left-3.5 top-4 text-slate-400"></i>
+                    </div>
+
+                    <!-- Search Suggestions Popup -->
+                    <div id="suggestionsBox" class="hidden absolute left-0 right-0 top-full mt-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-xl z-30 max-h-56 overflow-y-auto">
+                        <!-- Populated dynamically -->
+                    </div>
+
+                    <!-- Quick Suggestions Pills -->
+                    <div class="mt-3 flex flex-wrap items-center gap-2">
+                        <span class="text-xs text-slate-400">Popular:</span>
+                        <button type="button" onclick="selectQuickChapter('Light - Reflection and Refraction')" class="text-xs px-2.5 py-1 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg transition">Light & Optics</button>
+                        <button type="button" onclick="selectQuickChapter('Chemical Reactions and Equations')" class="text-xs px-2.5 py-1 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg transition">Chemical Reactions</button>
+                        <button type="button" onclick="selectQuickChapter('Electric Current and Circuits')" class="text-xs px-2.5 py-1 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg transition">Electricity</button>
+                        <button type="button" onclick="selectQuickChapter('Cell: The Unit of Life')" class="text-xs px-2.5 py-1 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg transition">Cell Biology</button>
+                    </div>
+                </div>
+
+                <!-- Select Dropdowns Row -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
+                            3. Class / Grade
+                        </label>
+                        <div class="relative">
+                            <select id="classSelect" class="w-full appearance-none pl-4 pr-10 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-slate-900 dark:text-white font-medium">
+                                <option value="Class 10" selected>Class 10</option>
+                                <option value="Class 12">Class 12</option>
+                                <option value="Class 11">Class 11</option>
+                                <option value="Class 9">Class 9</option>
+                                <option value="Class 8">Class 8</option>
+                                <option value="Class 7">Class 7</option>
+                                <option value="Class 6">Class 6</option>
+                            </select>
+                            <i data-lucide="chevron-down" class="w-5 h-5 absolute right-3 top-3.5 text-slate-400 pointer-events-none"></i>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
+                            4. Educational Board
+                        </label>
+                        <div class="relative">
+                            <select id="boardSelect" class="w-full appearance-none pl-4 pr-10 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-slate-900 dark:text-white font-medium">
+                                <option value="CBSE" selected>CBSE (Central Board)</option>
+                                <option value="ICSE">ICSE / ISC</option>
+                                <option value="State Board">State Board (MH/UP/TN/etc.)</option>
+                                <option value="IB">IB (International Baccalaureate)</option>
+                                <option value="IGCSE">IGCSE / Cambridge</option>
+                            </select>
+                            <i data-lucide="chevron-down" class="w-5 h-5 absolute right-3 top-3.5 text-slate-400 pointer-events-none"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Button -->
+                <button type="button" onclick="generateNotes()" class="w-full py-4 px-6 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-lg rounded-xl shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 active:scale-[0.99] transition transform flex items-center justify-center space-x-2">
+                    <i data-lucide="sparkles" class="w-5 h-5 animate-pulse"></i>
+                    <span>Generate World's Best Notes</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Loading State Section -->
+        <section id="loadingSection" class="hidden max-w-xl mx-auto w-full text-center py-12">
+            <div class="bg-white dark:bg-slate-900 rounded-2xl p-8 border border-slate-200 dark:border-slate-800 shadow-xl space-y-6">
+                <div class="relative w-20 h-20 mx-auto">
+                    <div class="absolute inset-0 rounded-full border-4 border-indigo-200 dark:border-indigo-950"></div>
+                    <div class="absolute inset-0 rounded-full border-4 border-indigo-600 border-t-transparent animate-spin"></div>
+                    <div class="absolute inset-0 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
+                        <i data-lucide="pen-tool" class="w-8 h-8 animate-bounce"></i>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white">Generating Handwritten Masterpiece...</h3>
+                    <p id="loadingTip" class="text-sm text-slate-500 dark:text-slate-400 mt-2 h-6">Analyzing NCERT textbook patterns & topper notes...</p>
+                </div>
+                <div class="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+                    <div id="loadingProgress" class="bg-gradient-to-r from-blue-600 to-indigo-600 h-full w-0 transition-all duration-300"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results / Reader Section -->
+        <section id="resultsSection" class="hidden flex-1 flex flex-col gap-6">
+            
+            <!-- Notes Toolbar Header -->
+            <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-4 shadow-md flex flex-wrap items-center justify-between gap-4">
+                
+                <div class="flex items-center space-x-3">
+                    <button onclick="backToSearch()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300">
+                        <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                    </button>
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <h2 id="displayChapterTitle" class="text-lg font-bold text-slate-900 dark:text-white">Chapter Title</h2>
+                            <span id="displayFocusBadge" class="text-xs px-2 py-0.5 rounded-full font-semibold bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300">Board Exam</span>
+                        </div>
+                        <p id="displayMeta" class="text-xs text-slate-500 dark:text-slate-400">Class 10 • CBSE • 3 Pages Generated</p>
+                    </div>
+                </div>
+
+                <!-- Customization Controls -->
+                <div class="flex items-center flex-wrap gap-2">
+                    
+                    <!-- Font Selector -->
+                    <div class="flex items-center space-x-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg">
+                        <i data-lucide="type" class="w-4 h-4 ml-2 text-slate-400"></i>
+                        <select id="fontSelect" onchange="changeHandwritingFont(this.value)" class="bg-transparent text-xs font-medium text-slate-700 dark:text-slate-300 outline-none pr-2 cursor-pointer">
+                            <option value="font-caveat">Caveat (Cursive)</option>
+                            <option value="font-patrick" selected>Patrick Hand</option>
+                            <option value="font-kalam">Kalam (Neat)</option>
+                            <option value="font-architect">Architects</option>
+                        </select>
+                    </div>
+
+                    <!-- Paper Theme Selector -->
+                    <div class="flex items-center space-x-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg">
+                        <button onclick="setPaperStyle('ruled')" id="btnPaperRuled" class="px-2 py-1 text-xs font-semibold rounded bg-white dark:bg-slate-700 shadow-sm text-slate-800 dark:text-white">Ruled</button>
+                        <button onclick="setPaperStyle('grid')" id="btnPaperGrid" class="px-2 py-1 text-xs font-semibold rounded text-slate-600 dark:text-slate-400">Grid</button>
+                        <button onclick="setPaperStyle('blank')" id="btnPaperBlank" class="px-2 py-1 text-xs font-semibold rounded text-slate-600 dark:text-slate-400">Blank</button>
+                    </div>
+
+                    <!-- Ink Color Selector -->
+                    <div class="flex items-center space-x-1 bg-slate-100 dark:bg-slate-800 p-1.5 rounded-lg">
+                        <button onclick="changeInkColor('text-blue-900 dark:text-blue-200')" class="w-4 h-4 rounded-full bg-blue-800 ring-2 ring-transparent focus:ring-blue-500"></button>
+                        <button onclick="changeInkColor('text-slate-900 dark:text-slate-100')" class="w-4 h-4 rounded-full bg-slate-900 dark:bg-slate-100 ring-2 ring-transparent focus:ring-slate-500"></button>
+                        <button onclick="changeInkColor('text-indigo-900 dark:text-indigo-200')" class="w-4 h-4 rounded-full bg-indigo-900 ring-2 ring-transparent focus:ring-indigo-500"></button>
+                    </div>
+
+                    <!-- View Switcher Tabs -->
+                    <div class="flex items-center bg-slate-100 dark:bg-slate-800 p-1 rounded-lg">
+                        <button onclick="switchView('notes')" id="tabNotes" class="px-3 py-1 text-xs font-semibold rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm flex items-center space-x-1">
+                            <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+                            <span>Notes</span>
+                        </button>
+                        <button onclick="switchView('flashcards')" id="tabFlashcards" class="px-3 py-1 text-xs font-semibold rounded-md text-slate-600 dark:text-slate-400 flex items-center space-x-1 hover:text-slate-900">
+                            <i data-lucide="layers" class="w-3.5 h-3.5"></i>
+                            <span>Flashcards</span>
+                        </button>
+                        <button onclick="switchView('quiz')" id="tabQuiz" class="px-3 py-1 text-xs font-semibold rounded-md text-slate-600 dark:text-slate-400 flex items-center space-x-1 hover:text-slate-900">
+                            <i data-lucide="help-circle" class="w-3.5 h-3.5"></i>
+                            <span>Quiz</span>
+                        </button>
+                    </div>
+
+                    <!-- Bookmark & Export Actions -->
+                    <button onclick="toggleCurrentBookmark()" id="bookmarkBtn" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-600 dark:text-slate-300">
+                        <i data-lucide="bookmark" class="w-5 h-5"></i>
+                    </button>
+                    <button onclick="downloadPDFMock()" class="px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-bold flex items-center space-x-1 shadow">
+                        <i data-lucide="download" class="w-4 h-4"></i>
+                        <span>Download PDF</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- VIEW 1: HANDWRITTEN NOTES READER -->
+            <div id="viewNotes" class="flex-1 flex flex-col items-center">
+                
+                <!-- Pages Wrapper -->
+                <div id="notebookContainer" class="w-full max-w-4xl space-y-8">
+                    <!-- Dynamic Page Elements Rendered Here -->
+                </div>
+
+                <!-- Page Pagination Floating Bar -->
+                <div class="sticky bottom-6 mt-6 bg-slate-900/90 text-white backdrop-blur px-4 py-2 rounded-full shadow-2xl flex items-center space-x-4 border border-slate-700">
+                    <button onclick="navigatePage(-1)" class="hover:text-indigo-400"><i data-lucide="chevron-left" class="w-5 h-5"></i></button>
+                    <span id="pageIndicator" class="text-xs font-semibold">Page 1 of 3</span>
+                    <button onclick="navigatePage(1)" class="hover:text-indigo-400"><i data-lucide="chevron-right" class="w-5 h-5"></i></button>
+                </div>
+            </div>
+
+            <!-- VIEW 2: FLASHCARDS -->
+            <div id="viewFlashcards" class="hidden flex-1 flex flex-col items-center justify-center py-8">
+                <div class="w-full max-w-md">
+                    <div id="flashcardElement" onclick="flipFlashcard()" class="w-full h-80 bg-white dark:bg-slate-900 border-2 border-indigo-200 dark:border-indigo-800 rounded-2xl shadow-xl p-8 flex flex-col justify-between cursor-pointer transform transition-transform duration-500 hover:scale-[1.02] relative">
+                        <div class="flex justify-between items-center text-xs text-slate-400 font-semibold uppercase">
+                            <span id="fcTag">Key Term</span>
+                            <span id="fcIndex">1
